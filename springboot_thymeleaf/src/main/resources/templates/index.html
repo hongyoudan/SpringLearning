@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+
+<h3>👉变量输出</h3>
+<h4 th:text="${text}">默认文本</h4>
+<input th:value="${value}">
+<input th:value="${date}">
+
+<h3>👉操作时间</h3>
+<span th:text="${#dates.format(date,'yyyy-MM-dd')}"/>
+
+<h3>👉条件判断</h3>
+<span th:if="${gender}==1">男</span>
+<div th:switch="${switch}">
+    <span th:case="1">周一</span>
+    <span th:case="2">周二</span>
+    <span th:case="3">周三</span>
+    <span th:case="4">周四</span>
+    <span th:case="5">周五</span>
+    <span th:case="6">周六</span>
+    <span th:case="7">周天</span>
+</div>
+
+<h3>👉迭代遍历</h3>
+<table border="1">
+    <tr>
+        <td>姓名</td>
+        <td>性别</td>
+        <td>年龄</td>
+        <td>index</td>
+        <td>count</td>
+        <td>size</td>
+        <td>odd</td>
+        <td>even</td>
+        <td>first</td>
+        <td>last</td>
+    </tr>
+    <tr th:each="user,status:${userList}">
+        <td th:text="${user.name}"/>
+        <td th:text="${user.gender}"/>
+        <td th:text="${user.age}"/>
+        <td th:text="${status.index}"/>
+        <td th:text="${status.count}"/>
+        <td th:text="${status.size}"/>
+        <td th:text="${status.odd}"/>
+        <td th:text="${status.even}"/>
+        <td th:text="${status.first}"/>
+        <td th:text="${status.last}"/>
+    </tr>
+</table>
+<br>
+<table border="1">
+    <tr>
+        <td>key</td>
+        <td>姓名</td>
+        <td>性别</td>
+        <td>年龄</td>
+    </tr>
+    <tr th:each="user:${userMap}">
+        <td th:text="${user.key}"/>
+        <td th:text="${user.value.name}"/>
+        <td th:text="${user.value.gender}"/>
+        <td th:text="${user.value.age}"/>
+    </tr>
+</table>
+
+<h3>👉url拼接</h3>
+<a th:href="@{'/jump/year='+${year}+'/month='+${month}}">动态链接01</a>
+<a th:href="@{/jump/{year}/{month}(year=${year},month=${month})}">动态链接02</a>
+
+</body>
+</html>
